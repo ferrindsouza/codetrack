@@ -63,9 +63,65 @@
                 <li>Write 8–10 lines in simple language, add screenshots if possible.</li>
             </ul>
 
-            <p class="placeholder">[Write your learning summary here – including both Git basics and one debugging
-                example]</p>
 
+             <h1>Git Merge</h1>
+    <p>It takes changes from another branch and applies them into your current branch. It tries to keep the commit history intact.</p>
+    <p>Eg: you’re on main (master) and you run:</p>
+    <pre style="color: green;"><code>git merge feature-login</code></pre>
+    <p style="color: green;">Git will combine the commits from feature-login into main.</p>
+
+    <hr>
+
+    <h2>Fast-forward Merge</h2>
+    <p>This happens when the branch you’re merging into has not moved forward since you branched off. Git can simply “move” the branch pointer forward which means no new commit is created.</p>
+    <p>Eg:</p>
+    <pre style="color: green;"><code>main:      A - - - B
+feature:           B - - - C - - - D</code></pre>
+    <p>Merging feature into main just moves main to D:</p>
+    <pre style="color: green;"><code>main: A - - B - - C - - D</code></pre>
+    <p><strong>Command:</strong></p>
+    <pre style="color: green;"><code>git merge feature</code></pre>
+    <p><strong>Result:</strong></p>
+    <p style="color: green;">no extra merge commit; history is linear</p>
+
+    <hr>
+
+    <h2>No-fast-forward Merge</h2>
+    <p>This forces Git to create a new merge commit even if a fast-forward is possible. This preserves the branch’s history for clarity. Hence more useful for teams and tracking purposes.</p>
+    <p>Eg:</p>
+    <p>Same scenario as above, but with</p>
+    <pre style="color: green;"><code>git merge --no-ff feature</code></pre>
+    <p><strong>Result:</strong></p>
+    <pre style="color: green;"><code>A --- B ------- M
+      \      /
+       C --- D</code></pre>
+    <p>Here, M is the merge commit that records exactly when feature was merged, keeping its commits grouped together in history.</p>
+
+    <hr>
+
+    <h2>Merge Conflict: A common debugging scenario</h2>
+    <p>This happens when Git can’t automatically combine changes from two branches because the same part of a file was modified in different ways.</p>
+    <h3>Why it happens?</h3>
+    <p>Imaginefor example you and a teammate both edit the same line in a file app.py:</p>
+    <pre style="color: green;"><code>You: print("Hello World")
+Teammate: print("Hi World")</code></pre>
+    <p>When merging, Git doesn’t know which version to keep — yours, theirs, or both — so it flags a conflict.</p>
+    <h3>How to resolve (high-level)</h3>
+    <ol>
+        <li>Git marks the conflict in the file as follows:
+            <pre style="color: green;"><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+Your version
+=======
+Their version
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; branch-name</code></pre>
+        </li>
+        <li>You open the file, decide how to combine or choose one version.</li>
+        <li>Mark it as resolved:
+            <pre style="color: green;"><code>git add file
+git commit -m "ressolved merge conflict"</code></pre>
+        </li>
+    </ol>
+               
         </section>
     </main>
 
