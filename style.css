@@ -170,6 +170,15 @@ h2 {
     margin: .5rem 0 .5rem;
 }
 
+code {
+	font-size: 1.1rem;
+	font-family: "Fira Code", monospace;
+	background-color: #f4f4f4;
+	padding: 4px 6px;
+	border-radius: 4px;
+	display: inline-block;
+}
+
 /* ---------------------------
    Lists / Links
 ---------------------------- */
